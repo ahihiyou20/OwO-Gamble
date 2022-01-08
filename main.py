@@ -7,10 +7,11 @@ try:
 import discum
 except:
  if os.name == 'nt':
-os.system('py -m pip install discum')
-if os.name != 'nt':
-print('You Should Install Package "Discum"')
-import discum
+  os.system('py -m pip install discum')
+  import discum
+if os.name == 'posix':
+  os.system('pip install discum')
+  import discum
 
 #Var
 token = input('Please Enter Your Account Token: ')
