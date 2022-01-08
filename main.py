@@ -23,6 +23,8 @@ maxbet = input('Please Enter Maximum Bet: ')
 
 client=discum.Client(token=token, log=False)
 
+loop = int(input("Please Enter How Many Times It Should Loop: "))
+for x in range(loop):
 def runner()
 cfmin = owo coinflip {minbet}
 msgs=client.getMessages(str(bot.channel),num=10)
@@ -36,8 +38,27 @@ client.typingAction(str(channelid))
 client.sendMessage(str(channelid), cfmin)
 print("[SENT] {cfmin}")
 if 'and you won' in msgonec:
-  print("[WIN] Win
-if 'and you lost it all... :c' in msgonec:
-  minbet = minbet 
-if minbet >= maxbet:
+  print("[INFO] Won")
+  client.sendMessage(str(channelid), "owo cash")
   minbet = 1000
+  time.sleep(13)
+if 'and you lost it all... :c' in msgonec:
+  print("[INFO] Lost")
+  client.sendMessage(str(channelid), "owo cash")
+  minbet = minbet + 1000
+  time.sleep(13)
+if 'If you have trouble solving the captcha, please ask us in our support guild!' in msgonec:
+  print("[CAPTCHA] I Found A Captcha! Come Solve It")
+  exit()
+if '(2/5)' in str(msgonec):
+  print("CAPTCHA] I Found A Captcha! Come Solve It")
+  exit()
+if minbet >= maxbet:
+  minbet = 100
+while loop:
+ main=time.time()
+ if time.time() - main > random.randint(1000, 2000):
+        time.sleep(random.randint(300, 600)
+        main=time.time()
+print(token)
+client.gateway.run()
