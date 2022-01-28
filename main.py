@@ -1,65 +1,190 @@
-#Import important package
-
-import os
+from json.decoder import JSONDecodeError
 import time
+import os
+from multiprocessing import Process
+from multiprocessing import Pool
 import random
+import re
+if os.name == 'posix':
+ try:
+  import simplejson as json
+ except:
+  os.system('pip install simplejson')
+  import simplejson as json
+if os.name == 'nt':
+  import json
 try:
-import discum
+ import discum
 except:
  if os.name == 'nt':
-  os.system('py -m pip install discum')
-  import discum
-if os.name == 'posix':
-  os.system('pip install discum')
-  import discum
+  os.system('py -m pip install -r requirements.txt')
+ if os.name != 'nt':
+  os.system('pip install -r requirements.txt')
+ import discum
+print("""\
+░█████╗░░██╗░░░░░░░██╗░█████╗░  ░██████╗███████╗██╗░░░░░███████╗  ██████╗░░█████╗░████████╗
+██╔══██╗░██║░░██╗░░██║██╔══██╗  ██╔════╝██╔════╝██║░░░░░██╔════╝  ██╔══██╗██╔══██╗╚══██╔══╝
+██║░░██║░╚██╗████╗██╔╝██║░░██║  ╚█████╗░█████╗░░██║░░░░░█████╗░░  ██████╦╝██║░░██║░░░██║░░░
+██║░░██║░░████╔═████║░██║░░██║  ░╚═══██╗██╔══╝░░██║░░░░░██╔══╝░░  ██╔══██╗██║░░██║░░░██║░░░
+╚█████╔╝░░╚██╔╝░╚██╔╝░╚█████╔╝  ██████╔╝███████╗███████╗██║░░░░░  ██████╦╝╚█████╔╝░░░██║░░░
+░╚════╝░░░░╚═╝░░░╚═╝░░░╚════╝░  ╚═════╝░╚══════╝╚══════╝╚═╝░░░░░  ╚═════╝░░╚════╝░░░░╚═╝░░░
 
-#Var
-token = input('Please Enter Your Account Token: ')
-channelid = input('Please Enter Your Channel ID: ')
-owoid = str(408785106942164992)
-minbet = 1000
-maxbet = input('Please Enter Maximum Bet: ')
-
-#Main Code
-
-client=discum.Client(token=token, log=False)
-
-loop = int(input("Please Enter How Many Times It Should Loop: "))
-for x in range(loop):
-def runner()
-cfmin = owo coinflip {minbet}
-msgs=client.getMessages(str(bot.channel),num=10)
-   msgs=json.loads(msgs.text)
-   owodes=0 
-   for msgone in msgs:
-    if msgone['author']['id']==str(owoid):
-      owodes=owodes+1
-      msgonec=msgone['content']
-client.typingAction(str(channelid))
-client.sendMessage(str(channelid), cfmin)
-print("[SENT] {cfmin}")
-if 'and you won' in msgonec:
-  print("[INFO] Won")
-  client.sendMessage(str(channelid), "owo cash")
-  minbet = 1000
-  time.sleep(13)
-if 'and you lost it all... :c' in msgonec:
-  print("[INFO] Lost")
-  client.sendMessage(str(channelid), "owo cash")
-  minbet = minbet + 1000
-  time.sleep(13)
-if 'If you have trouble solving the captcha, please ask us in our support guild!' in msgonec:
-  print("[CAPTCHA] I Found A Captcha! Come Solve It")
-  exit()
-if '(2/5)' in str(msgonec):
-  print("CAPTCHA] I Found A Captcha! Come Solve It")
-  exit()
-if minbet >= maxbet:
-  minbet = 100
-while loop:
- main=time.time()
- if time.time() - main > random.randint(1000, 2000):
-        time.sleep(random.randint(300, 600)
+**Version: CoinFlip**""")
+wbm=[13,15]
+time.sleep(2)
+class client:
+  commands=[
+    "t","h"
+   ]
+  bet = 1000
+  class color:
+    purple = '\033[95m'
+    okblue = '\033[94m'
+    okcyan = '\033[96m'
+    okgreen = '\033[92m'
+    warning = '\033[93m'
+    fail = '\033[91m'
+    reset = '\033[0m'
+    bold = '\033[1m'
+    underline = '\033[4m'
+    if os.name == "nt":
+      purple = ''
+      okblue = ''
+      okcyan = ''
+      okgreen = ''
+      warning = ''
+      fail = ''
+      reset = ''
+      bold = ''
+      underline = ''
+  with open('settings.json', "r") as file:
+        data = json.load(file)
+        token = data["token"]
+        channel = data["channel"]
+        gm = data["gm"]
+        sm = data["sm"]
+  if data["token"] and data["channel"] == 'nothing':
+   print(f"{color.fail} !!! [ERROR] !!! {color.reset} Please Enter Information To Continue")
+   time.sleep(1)
+   if os.name == 'nt':
+    os.system('py newdata.py')
+   if os.name != 'nt':
+    os.system('python newdata.py')
+  print('=========================')
+  print('|                       |')
+  print(f'| [1] {color.purple}Load data         {color.reset}|')
+  print(f'| [2] {color.purple}Create new data   {color.reset}|')
+  print(f'| [3] {color.purple}Credit            {color.reset}|')
+  print('=========================')
+  time.sleep(1)
+  time.sleep(1)
+choice = int(input('Enter your choice: '))
+if (choice == 1):
+      pass
+if (choice == 2):
+     if os.name == 'nt':
+      os.system('py newdata.py')
+     if os.name != 'nt':
+      os.system('python newdata.py')
+if (choice == 3):
+      print(f'{client.color.okcyan} =========Credit=========={client.color.reset}')
+      print(f'{client.color.purple} [Developer] {client.color.reset} ahihiyou20')
+      print(f'{client.color.okcyan} Someone just leave this project :( {client.color.reset}')
+      time.sleep(5)
+      exit() 
+if (choice == 4):
+ print(f'{client.color.purple} COMING SOON! {client.color.reset}')
+ time.sleep(2)
+ exit()
+if not (choice ==1 or 2 or 3 or 4): 
+ print(f'{client.color.fail} !! [ERROR] !! {client.color.reset} Wrong input!')
+ time.sleep(2)
+ exit()
+def at():
+  return f'\033[0;43m{time.strftime("%d %b %Y %H:%M:%S", time.localtime())}\033[0;21m'
+bot = discum.Client(token=client.token, log=False)
+@bot.gateway.command
+def on_ready(resp):
+    if resp.event.ready_supplemental: #ready_supplemental is sent after ready
+        user = bot.gateway.session.user
+        print("Logged in as {}#{}".format(user['username'], user['discriminator']))
+@bot.gateway.command
+def issuechecker(resp):
+ if resp.event.message:
+   m = resp.parsed.auto()
+   if m['channel_id'] == client.channel:
+    if m['author']['id'] == '408785106942164992' or m['author']['username'] == 'OwO' or m['author']['discriminator'] == '8456' or m['author']['public_flags'] == '65536':
+     if 'captcha' in m['content']:
+      print(f'{at()}{client.color.warning} !! [CAPTCHA] !! {client.color.reset} CAPTCHA   ACTION REQUİRED')
+      time.sleep(1)
+      bot.gateway.close()
+     if '(2/5)' in m['content']:
+      print(f'{at()}{client.color.warning} !! [CAPTCHA] !! {client.color.reset} CAPTCHA   ACTION REQUİRED (2/5)')
+      time.sleep(1)
+      bot.gateway.close()
+     if '(3/5)' in m['content']:
+      print(f'{at()}{client.color.warning} !! [CAPTCHA] !! {client.color.reset} CAPTCHA   ACTION REQUİRED (3/5)')
+      time.sleep(1)
+      bot.gateway.close()
+     if '(4/5)' in m['content']:
+      print(f'{at()}{client.color.warning} !! [CAPTCHA] !! {client.color.reset} CAPTCHA   ACTION REQUİRED (4/5)')
+      time.sleep(1)
+      bot.gateway.close()
+     if '(5/5)' in m['content']:
+      print(f'{at()}{client.color.warning} !! [CAPTCHA] !! {client.color.reset} CAPTCHA   ACTION REQUİRED (5/5)')
+      time.sleep(1)
+      bot.gateway.close()
+     if 'banned' in m['content']:
+      print(f'{at()}{client.color.fail} !!! [BANNED] !!! {client.color.reset} your account have been banned from owo bot please open a issue on the Support Discord server')
+      time.sleep(1)
+      bot.gateway.close()
+     if 'complete your captcha to verify that you are human!' in m['content']:
+      print(f'{at()}{client.color.warning} !! [CAPTCHA] !! {client.color.reset} CAPTCHA   ACTION REQUİRED')
+      time.sleep(1)
+      bot.gateway.close()
+     if 'DM' in m['content']:
+      print(f'{at()}{client.color.warning} !! [CAPTCHA] !! {client.color.reset} CAPTCHA   ACTION REQUİRED')
+      time.sleep(1)
+      bot.gateway.close()
+@bot.gateway.command
+def check(resp):
+  if resp.event.message_updated:
+   m = resp.parsed.auto()
+   if m['channel_id'] == client.channel:
+    if m['author']['id'] == '408785106942164992' or m['author']['username'] == 'OwO' or m['author']['discriminator'] == '8456' or m['author']['public_flags'] == '65536':
+      if 'won' in m['content']:
+       print('won')
+       client.bet = 1000
+      if 'lost' in m['content']:
+       print('lose')
+       client.bet = client.bet*2
+@bot.gateway.command
+def cf(resp):
+ if resp.event.ready:
+  choice = random.choice(client.commands)
+  bot.sendMessage(str(client.channel), "owo cf {} {} ".format(client.bet,choice))
+  print("owo cf {} {}".format(client.bet,choice))
+  time.sleep(random.randint(wbm[0], wbm[1]))
+ if client.bet >= 128000:
+    client.bet = 1000 
+    return
+@bot.gateway.command
+def loopie(resp):
+ if resp.event.ready:
+  x=True
+  main=time.time()
+  while x:
+      cf(resp)
+      if time.time() - main > random.randint(1000, 2000):
+        time.sleep(random.randint(500, 700))
         main=time.time()
-print(token)
-client.gateway.run()
+def defination1():
+  global once
+  if not once:
+    once=True
+    if __name__ == '__main__':
+      lol2= Pool(os.cpu_count() - 1)
+      lol2.map(loopie)
+      lol=multiprocessing.Process(target=loopie)
+      lol.run()
+bot.gateway.run(auto_reconnect=True)
