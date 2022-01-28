@@ -1,6 +1,6 @@
 import time
 import os
-from multiprocessing import Process
+from multiprocessing import Process, log_to_stderr
 from multiprocessing import Pool
 import random
 import re
@@ -16,11 +16,9 @@ if os.name == 'nt':
 try:
  import discum
 except:
- if os.name == 'nt':
-  os.system('py -m pip install -r requirements.txt')
- if os.name != 'nt':
-  os.system('pip install -r requirements.txt')
+ exec(open("./setup.py").read())
  import discum
+
 print("""\
 ░█████╗░░██╗░░░░░░░██╗░█████╗░  ░██████╗███████╗██╗░░░░░███████╗  ██████╗░░█████╗░████████╗
 ██╔══██╗░██║░░██╗░░██║██╔══██╗  ██╔════╝██╔════╝██║░░░░░██╔════╝  ██╔══██╗██╔══██╗╚══██╔══╝
@@ -31,13 +29,15 @@ print("""\
 
 **Version: CoinFlip**""")
 wbm=[14,16]
-time.sleep(2)
+time.sleep(0.5)
 class client:
   commands=[
     "t","h"
    ]
   bet = 1000
   totalcmd = 0
+  totallost = 0
+  totalwon = 0
   class color:
     purple = '\033[95m'
     okblue = '\033[94m'
@@ -65,10 +65,7 @@ class client:
   if data["token"] and data["channel"] == 'nothing':
    print(f"{color.fail} !!! [ERROR] !!! {color.reset} Please Enter Information To Continue")
    time.sleep(1)
-   if os.name == 'nt':
-    os.system('py newdata.py')
-   if os.name != 'nt':
-    os.system('python newdata.py')
+   exec(open("./newdata.py").read())
   print('=========================')
   print('|                       |')
   print(f'| [1] {color.purple}Load data         {color.reset}|')
@@ -81,20 +78,12 @@ choice = int(input('Enter your choice: '))
 if (choice == 1):
       pass
 if (choice == 2):
-     if os.name == 'nt':
-      os.system('py newdata.py')
-     if os.name != 'nt':
-      os.system('python newdata.py')
+  exec(open("./newdata.py").read())
 if (choice == 3):
       print(f'{client.color.okcyan} =========Credit=========={client.color.reset}')
       print(f'{client.color.purple} [Developer] {client.color.reset} ahihiyou20')
-      print(f'{client.color.okcyan} Someone just leave this project :( {client.color.reset}')
-      time.sleep(5)
+      time.sleep(3)
       exit() 
-if (choice == 4):
- print(f'{client.color.purple} COMING SOON! {client.color.reset}')
- time.sleep(2)
- exit()
 if not (choice ==1 or 2 or 3 or 4): 
  print(f'{client.color.fail} !! [ERROR] !! {client.color.reset} Wrong input!')
  time.sleep(2)
@@ -104,7 +93,7 @@ def at():
 bot = discum.Client(token=client.token, log=False)
 @bot.gateway.command
 def on_ready(resp):
-    if resp.event.ready_supplemental: #ready_supplemental is sent after ready
+    if resp.event.ready_supplemental:
         user = bot.gateway.session.user
         print("Logged in as {}#{}".format(user['username'], user['discriminator']))
 @bot.gateway.command
@@ -119,35 +108,32 @@ def issuechecker(resp):
       bot.gateway.close()
      if '(2/5)' in m['content']:
       print(f'{at()}{client.color.warning} !! [CAPTCHA] !! {client.color.reset} CAPTCHA   ACTION REQUİRED (2/5)')
-      time.sleep(1)
       bot.gateway.close()
      if '(3/5)' in m['content']:
       print(f'{at()}{client.color.warning} !! [CAPTCHA] !! {client.color.reset} CAPTCHA   ACTION REQUİRED (3/5)')
-      time.sleep(1)
       bot.gateway.close()
      if '(4/5)' in m['content']:
       print(f'{at()}{client.color.warning} !! [CAPTCHA] !! {client.color.reset} CAPTCHA   ACTION REQUİRED (4/5)')
-      time.sleep(1)
       bot.gateway.close()
      if '(5/5)' in m['content']:
       print(f'{at()}{client.color.warning} !! [CAPTCHA] !! {client.color.reset} CAPTCHA   ACTION REQUİRED (5/5)')
-      time.sleep(1)
       bot.gateway.close()
      if 'banned' in m['content']:
       print(f'{at()}{client.color.fail} !!! [BANNED] !!! {client.color.reset} your account have been banned from owo bot please open a issue on the Support Discord server')
-      time.sleep(1)
       bot.gateway.close()
      if 'complete your captcha to verify that you are human!' in m['content']:
       print(f'{at()}{client.color.warning} !! [CAPTCHA] !! {client.color.reset} CAPTCHA   ACTION REQUİRED')
-      time.sleep(1)
       bot.gateway.close()
      if 'DM' in m['content']:
       print(f'{at()}{client.color.warning} !! [CAPTCHA] !! {client.color.reset} CAPTCHA   ACTION REQUİRED')
-      time.sleep(1)
       bot.gateway.close()
      if 'you currently have' in m['content']:
-       issuechecker.cash = re.findall('[0-9]+', m['content'])
-       print("{}You currently have: {}{} Cowoncy!{}".format(client.color.warning,issuechecker.cash[1],issuechecker.cash[2],client.color.reset))
+      issuechecker.cash = re.findall('[0-9]+', m['content'])
+      print("{}You currently have: {}{} Cowoncy!{}".format(client.color.warning,issuechecker.cash[1],issuechecker.cash[2],client.color.reset))
+      time.sleep(3)
+     if 'You don\'t have enough cowoncy!' in m['content']:
+       print("{} [ERROR] Not Enough Cowoncy To Continue! {}".format(client.color.fail,client.color.reset))
+       bot.gateway.close()
 @bot.gateway.command
 def check(resp):
   if resp.event.message_updated:
@@ -155,33 +141,32 @@ def check(resp):
    if m['channel_id'] == client.channel:
     if m['author']['id'] == '408785106942164992' or m['author']['username'] == 'OwO' or m['author']['discriminator'] == '8456' or m['author']['public_flags'] == '65536':
       if 'and you won' in m['content']:
-       print("{}Won: {} Cowoncy{}".format(client.color.okgreen,client.bet*2,client.color.reset))
+       print("{} [INFO] Won: {} Cowoncy{}".format(client.color.okgreen,client.bet + client.bet,client.color.reset))
        client.bet = 1000
+       client.totalwon = client.totalwon + 1
       if 'and you lost it all... :c' in m['content']:
-       print("{}Lost: {} Cowoncy {}".format(client.color.fail,client.bet,client.color.reset))
-       client.bet = client.bet*2
-@bot.gateway.command
-def cf(resp):
- if resp.event.ready:
+       print(" {} [INFO] Lost: {} Cowoncy {}".format(,client.color.fail,client.bet,client.color.reset))
+       client.bet = client.bet + client.bet
+       client.totallost = client.totallost + 1
+def cf():
   choice = random.choice(client.commands)
   bot.sendMessage(str(client.channel), "owo cf {} {} ".format(client.bet,choice))
-  print("owo cf {} {}".format(client.bet,choice))
+  print("{} {} [SENT] owo cf {} {} {}".format(at(),client.color.warning,client.bet,choice,client.color.reset))
   client.totalcmd = client.totalcmd + 1
   time.sleep(random.randint(wbm[0], wbm[1]))
   bot.sendMessage(str(client.channel), "owo cash")
-  time.sleep(random.randint(wbm[0], wbm[1]))
- if client.bet >= 128000:
-    client.bet = 1000 
-    return
+  time.sleep(5)
+  if client.bet == 128000:
+    client.bet = 1000
 @bot.gateway.command
 def loopie(resp):
  if resp.event.ready:
   x=True
   main=time.time()
   while x:
-      cf(resp)
+      cf()
       if time.time() - main > random.randint(1000, 2000):
-        time.sleep(random.randint(500, 700))
+        time.sleep(random.randint(20,30))
         main=time.time()
 def defination1():
   global once
@@ -190,11 +175,14 @@ def defination1():
     if __name__ == '__main__':
       lol2= Pool(os.cpu_count() - 1)
       lol2.map(loopie)
-      lol=multiprocessing.Process(target=loopie)
+      lol=Process(target=loopie)
       lol.run()
 bot.gateway.run(auto_reconnect=True)
 
 @atexit.register
 def total():
+ print("==========Stat==========")
  print("{}Total Number Of Commands Executed: {}{}".format(client.color.okcyan,client.totalcmd,client.color.reset))
  print("{}Remaining Amount Of Cowoncy: {}{} {}".format(client.color.okcyan,issuechecker.cash[1],issuechecker.cash[2],client.color.reset)) 
+ print("{}Total Lost: {} {}".format(client.color.okgreen,client.totallost,client.color.reset))
+ print("{}Total Won: {} {}".format(client.color.okgreen,client.totalwon,client.color.reset))
