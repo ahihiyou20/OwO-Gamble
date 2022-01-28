@@ -145,7 +145,7 @@ def check(resp):
        client.bet = 1000
        client.totalwon = client.totalwon + 1
       if 'and you lost it all... :c' in m['content']:
-       print(" {} [INFO] Lost: {} Cowoncy {}".format(,client.color.fail,client.bet,client.color.reset))
+       print(" {} [INFO] Lost: {} Cowoncy {}".format(client.color.fail,client.bet,client.color.reset))
        client.bet = client.bet + client.bet
        client.totallost = client.totallost + 1
 def cf():
