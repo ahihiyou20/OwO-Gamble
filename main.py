@@ -62,8 +62,6 @@ class client:
         data = json.load(file)
         token = data["token"]
         channel = data["channel"]
-        gm = data["gm"]
-        sm = data["sm"]
   if data["token"] and data["channel"] == 'nothing':
    print(f"{color.fail} !!! [ERROR] !!! {color.reset} Please Enter Information To Continue")
    time.sleep(1)
