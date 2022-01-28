@@ -1,10 +1,10 @@
-from json.decoder import JSONDecodeError
 import time
 import os
 from multiprocessing import Process
 from multiprocessing import Pool
 import random
 import re
+import atexit
 if os.name == 'posix':
  try:
   import simplejson as json
@@ -30,13 +30,14 @@ print("""\
 ░╚════╝░░░░╚═╝░░░╚═╝░░░╚════╝░  ╚═════╝░╚══════╝╚══════╝╚═╝░░░░░  ╚═════╝░░╚════╝░░░░╚═╝░░░
 
 **Version: CoinFlip**""")
-wbm=[13,15]
+wbm=[14,16]
 time.sleep(2)
 class client:
   commands=[
     "t","h"
    ]
   bet = 1000
+  totalcmd = 0
   class color:
     purple = '\033[95m'
     okblue = '\033[94m'
@@ -61,6 +62,8 @@ class client:
         data = json.load(file)
         token = data["token"]
         channel = data["channel"]
+        gm = data["gm"]
+        sm = data["sm"]
   if data["token"] and data["channel"] == 'nothing':
    print(f"{color.fail} !!! [ERROR] !!! {color.reset} Please Enter Information To Continue")
    time.sleep(1)
@@ -144,17 +147,20 @@ def issuechecker(resp):
       print(f'{at()}{client.color.warning} !! [CAPTCHA] !! {client.color.reset} CAPTCHA   ACTION REQUİRED')
       time.sleep(1)
       bot.gateway.close()
+     if 'you currently have' in m['content']:
+       issuechecker.cash = re.findall('[0-9]+', m['content'])
+       print("{}You currently have: {}{} Cowoncy!{}".format(client.color.warning,issuechecker.cash[1],issuechecker.cash[2],client.color.reset))
 @bot.gateway.command
 def check(resp):
   if resp.event.message_updated:
    m = resp.parsed.auto()
    if m['channel_id'] == client.channel:
     if m['author']['id'] == '408785106942164992' or m['author']['username'] == 'OwO' or m['author']['discriminator'] == '8456' or m['author']['public_flags'] == '65536':
-      if 'won' in m['content']:
-       print('won')
+      if 'and you won' in m['content']:
+       print("{}Won: {} Cowoncy{}".format(client.color.okgreen,client.bet*2,client.color.reset))
        client.bet = 1000
-      if 'lost' in m['content']:
-       print('lose')
+      if 'and you lost it all... :c' in m['content']:
+       print("{}Lost: {} Cowoncy {}".format(client.color.fail,client.bet,client.color.reset))
        client.bet = client.bet*2
 @bot.gateway.command
 def cf(resp):
@@ -162,6 +168,9 @@ def cf(resp):
   choice = random.choice(client.commands)
   bot.sendMessage(str(client.channel), "owo cf {} {} ".format(client.bet,choice))
   print("owo cf {} {}".format(client.bet,choice))
+  client.totalcmd = client.totalcmd + 1
+  time.sleep(random.randint(wbm[0], wbm[1]))
+  bot.sendMessage(str(client.channel), "owo cash")
   time.sleep(random.randint(wbm[0], wbm[1]))
  if client.bet >= 128000:
     client.bet = 1000 
@@ -186,3 +195,8 @@ def defination1():
       lol=multiprocessing.Process(target=loopie)
       lol.run()
 bot.gateway.run(auto_reconnect=True)
+
+@atexit.register
+def total():
+ print("{}Total Number Of Commands Executed: {}{}".format(client.color.okcyan,client.totalcmd,client.color.reset))
+ print("{}Remaining Amount Of Cowoncy: {}{} {}".format(client.color.okcyan,issuechecker.cash[1],issuechecker.cash[2],client.color.reset)) 
