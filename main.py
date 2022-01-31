@@ -1,6 +1,6 @@
 import time
 import os
-from multiprocessing import Process, log_to_stderr
+from multiprocessing import Process
 from multiprocessing import Pool
 import random
 import re
@@ -129,7 +129,7 @@ def issuechecker(resp):
       bot.gateway.close()
      if 'you currently have' in m['content']:
       issuechecker.cash = re.findall('[0-9]+', m['content'])
-      print("{}You currently have: {}{} Cowoncy!{}".format(client.color.warning,issuechecker.cash[1],issuechecker.cash[2],client.color.reset))
+      print("{}You currently have: {} Cowoncy! {}".format(client.color.warning,','.join(issuechecker.cash[1::]),client.color.reset))
       time.sleep(3)
      if 'You don\'t have enough cowoncy!' in m['content']:
        print("{} [ERROR] Not Enough Cowoncy To Continue! {}".format(client.color.fail,client.color.reset))
@@ -183,6 +183,6 @@ bot.gateway.run(auto_reconnect=True)
 def total():
  print("==========Stat==========")
  print("{}Total Number Of Commands Executed: {}{}".format(client.color.okcyan,client.totalcmd,client.color.reset))
- print("{}Remaining Amount Of Cowoncy: {}{} {}".format(client.color.okcyan,issuechecker.cash[1],issuechecker.cash[2],client.color.reset)) 
+ print("{}Remaining Amount Of Cowoncy: {} {}".format(client.color.okcyan,','.join(issuechecker.cash[1::]),client.color.reset)) 
  print("{}Total Lost: {} {}".format(client.color.okgreen,client.totallost,client.color.reset))
  print("{}Total Won: {} {}".format(client.color.okgreen,client.totalwon,client.color.reset))
