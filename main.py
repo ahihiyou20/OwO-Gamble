@@ -135,7 +135,7 @@ def cf():
   time.sleep(random.randint(wbm[0], wbm[1]))
   bot.sendMessage(str(client.channel), "owo cash")
   time.sleep(5)
-  if client.bet > 128000:
+  if client.current_bet  > 128000:
     client.current_bet = client.bet
 @bot.gateway.command
 def loopie(resp):
