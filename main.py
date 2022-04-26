@@ -50,6 +50,7 @@ class client:
    print(f"{color.fail} !!! [ERROR] !!! {color.reset} Please Enter Information To Continue")
    time.sleep(1)
    from newdata import menu
+   menu()
   print('=========================')
   print('|                       |')
   print(f'| [1] {color.purple}Load data         {color.reset}|')
@@ -62,6 +63,7 @@ if choice == "1":
       pass
 elif choice == "2":
       from newdata import menu
+      menu()
 elif choice == "3":
       print(f'{client.color.okcyan} =========Credit=========={client.color.reset}')
       print(f'{client.color.purple} [Developer] {client.color.reset} ahihiyou20')
