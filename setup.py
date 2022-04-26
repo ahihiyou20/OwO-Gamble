@@ -3,10 +3,7 @@ import subprocess
 import pkg_resources
 import os
 import time
-if os.name == 'nt':
-    required = {'discum'}
-if os.name != 'nt':
-    required = {'discum', 'simplejson'}
+required = {'discum'}
 installed = {pkg.key for pkg in pkg_resources.working_set}
 missing = required - installed
 if not missing:
